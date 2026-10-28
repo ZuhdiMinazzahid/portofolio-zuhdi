@@ -99,6 +99,7 @@ export default function ImageUploader({
   label = 'Gambar',
   required = false,
   accept = 'image/*',
+  aspectRatio = 'aspect-[3/4]',
 }) {
   const inputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
@@ -260,7 +261,7 @@ export default function ImageUploader({
             </button>
           </div>
         ) : (
-          <div className="relative w-full rounded-xl overflow-hidden bg-surface-container border border-white/10 aspect-video mb-2">
+          <div className={`relative w-full rounded-xl overflow-hidden bg-surface-container border border-white/10 ${aspectRatio} mb-2`}>
             <img src={value} alt="Preview" className="w-full h-full object-cover" />
             <button
               type="button"

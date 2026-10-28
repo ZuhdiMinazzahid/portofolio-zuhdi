@@ -194,6 +194,7 @@ export default function AdminProfilTab() {
               bucket="profile"
               folder="foto"
               label="Foto Profil"
+              aspectRatio="aspect-square max-w-xs"
               value={formData.foto_profil}
               onChange={(url) => setFormData((prev) => ({ ...prev, foto_profil: url }))}
             />

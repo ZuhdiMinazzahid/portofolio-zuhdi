@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { Plus, Edit2, Trash2, Eye, EyeOff, Loader2, Save, X, AlertCircle } from 'lucide-react';
 import ImageUploader from '../ui/ImageUploader';
+import { parseSocialMediaUrl, renderPlatformIcon } from '../../lib/mediaHelper';
 
 export default function AdminProyekTab() {
   const [proyekList, setProyekList] = useState([]);
@@ -273,7 +274,7 @@ export default function AdminProyekTab() {
                   : 'bg-surface-container/50 border-white/5 opacity-60'
               }`}
             >
-              <div className="relative aspect-video rounded-xl overflow-hidden bg-black mb-4">
+              <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-black mb-4">
                 <img
                   src={p.gambar_sampul || 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80'}
                   alt={p.judul}
@@ -458,6 +459,7 @@ export default function AdminProyekTab() {
                 bucket="media-proyek"
                 folder="sampul"
                 label="Gambar Sampul / Thumbnail (Foto Preview Karya) *"
+                aspectRatio="aspect-[3/4]"
                 required
                 value={form.gambar_sampul}
                 onChange={(url) => setForm({ ...form, gambar_sampul: url })}
@@ -467,7 +469,7 @@ export default function AdminProyekTab() {
                 <div>
                   <p className="text-xs font-bold text-white mb-0.5">Media Utama Karya (Video / Foto Resolusi Penuh)</p>
                   <p className="text-[11px] text-secondary">
-                    Upload file video atau foto karya langsung ke Supabase Storage, atau sematkan link YouTube.
+                    Upload file video atau foto karya langsung ke Supabase Storage, atau sematkan seluruh link aplikasi media sosial (Instagram, TikTok, YouTube, dll).
                   </p>
                 </div>
 
@@ -481,16 +483,29 @@ export default function AdminProyekTab() {
                 />
 
                 <div>
-                  <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-1.5">
-                    Atau Link Video YouTube (Opsional)
-                  </label>
+                  <div className="flex items-center justify-between mb-1.5 flex-wrap gap-2">
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider">
+                      Atau Link Aplikasi Media Sosial (Opsional)
+                    </label>
+                    {form.link_youtube && parseSocialMediaUrl(form.link_youtube) && (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-container/20 border border-primary-container/30 text-primary-container text-[11px] font-bold">
+                        <span className="w-3.5 h-3.5 flex items-center justify-center">
+                          {renderPlatformIcon(parseSocialMediaUrl(form.link_youtube).platform, 'w-3.5 h-3.5')}
+                        </span>
+                        <span>Terdeteksi: {parseSocialMediaUrl(form.link_youtube).name}</span>
+                      </span>
+                    )}
+                  </div>
                   <input
                     type="url"
                     value={form.link_youtube}
                     onChange={(e) => setForm({ ...form, link_youtube: e.target.value })}
-                    placeholder="https://www.youtube.com/watch?v=..."
+                    placeholder="https://www.instagram.com/reel/... atau https://www.tiktok.com/... atau https://youtube.com/..."
                     className="w-full px-4 py-2.5 rounded-xl bg-surface-container border border-white/5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-container"
                   />
+                  <p className="text-[11px] text-secondary mt-1.5 leading-relaxed">
+                    Mendukung semua link media: <strong>Instagram</strong> (Reel/Post), <strong>TikTok</strong>, <strong>YouTube</strong> (Video/Shorts), <strong>Facebook</strong>, <strong>Google Drive</strong>, <strong>Vimeo</strong>, <strong>X/Twitter</strong>, dll.
+                  </p>
                 </div>
               </div>
 

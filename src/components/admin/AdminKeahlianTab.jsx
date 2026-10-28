@@ -212,6 +212,7 @@ export default function AdminKeahlianTab() {
                 bucket="berkas"
                 folder="ikon"
                 label="Ikon Software (PNG / SVG)"
+                aspectRatio="aspect-square max-w-[120px]"
                 required
                 accept="image/*"
                 value={form.ikon}

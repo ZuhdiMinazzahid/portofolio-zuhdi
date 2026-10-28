@@ -30,8 +30,8 @@ export default function ProjectCard({ project, onSelect }) {
       onClick={() => onSelect(project)}
       className="project-card group bg-surface-container-low rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col cursor-pointer border border-white/5 hover:border-primary-container/40"
     >
-      {/* Thumbnail Aspect Video with Overlay */}
-      <div className="relative w-full aspect-video overflow-hidden bg-surface-container">
+      {/* Thumbnail Aspect 3:4 Portrait with Overlay */}
+      <div className="relative w-full aspect-[3/4] overflow-hidden bg-surface-container">
         <img
           src={coverUrl}
           alt={judul}
