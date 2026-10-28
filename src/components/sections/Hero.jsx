@@ -14,6 +14,9 @@ export default function Hero({ profil, loading = false }) {
   }
 
   const nama = profil?.nama_lengkap || 'Zuhdi Minazzahid';
+  const namaParts = nama.trim().split(/\s+/);
+  const firstName = namaParts[0] || 'Zuhdi';
+  const lastName = namaParts.slice(1).join(' ') || 'Minazzahid';
   const jabatan = profil?.jabatan || 'Videografer & Video Editor';
   const foto =
     profil?.foto_profil ||
@@ -39,13 +42,12 @@ export default function Hero({ profil, loading = false }) {
               </span>
             </div>
 
-            {/* Main Headline with Curved Underline SVG */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#0E0E10] tracking-tight leading-[1.15]">
-              {jabatan}{' '}
+            {/* Main Headline with Curved Underline under Zuhdi */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-[#0E0E10] tracking-tight leading-[1.12]">
               <span className="relative inline-block text-[#0E0E10]">
-                Berbakat.
+                {firstName}
                 <svg
-                  className="absolute -bottom-2 left-0 w-full h-3 text-primary-container"
+                  className="absolute -bottom-2 left-0 w-full h-3 sm:h-4 text-primary-container pointer-events-none"
                   fill="none"
                   viewBox="0 0 240 12"
                   xmlns="http://www.w3.org/2000/svg"
@@ -57,6 +59,9 @@ export default function Hero({ profil, loading = false }) {
                     strokeWidth="4"
                   />
                 </svg>
+              </span>
+              <span className="block mt-1 sm:mt-2 text-[#0E0E10]">
+                {lastName}
               </span>
             </h1>
 
